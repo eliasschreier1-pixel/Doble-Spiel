@@ -29,7 +29,7 @@ program_obj_files = stack.o bintree.o numbers.o timer.o highscore.o
 doble : main.o $(program_obj_files)
 	$(CC) $(FLAGS) $^ -o doble
 
-$(program_obj_filesobj_files): %.o: %.c
+$(program_obj_files): %.o: %.c
 	$(CC) -c $(FLAGS) $^ -o $@
 
 # --------------------------
