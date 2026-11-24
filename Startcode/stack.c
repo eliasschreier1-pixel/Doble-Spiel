@@ -10,6 +10,16 @@
 // Pushes data as pointer onto the stack.
 StackNode *push(StackNode *stack, void *data)
 {
+    StackNode *newNode = malloc(sizeof(StackNode));
+    if(newNode == NULL){
+        return stack;
+    }
+
+    newNode->data = data;
+    newNode->next = stack;
+
+    return newNode;
+
 
 }
 
@@ -17,13 +27,24 @@ StackNode *push(StackNode *stack, void *data)
 // freed by caller.)
 StackNode *pop(StackNode *stack)
 {
+    if(stack == NULL){
+        return stack;
+    }
 
+    StackNode *temp = stack->next;
+    
+    free(stack);
+
+    return temp;
 }
 
 // Returns the data of the top element.
 void *top(StackNode *stack)
 {
-
+    if(stack == NULL){
+        return NULL;
+    }
+    return stack->data;
 }
 
 // Clears stack and releases all memory.
