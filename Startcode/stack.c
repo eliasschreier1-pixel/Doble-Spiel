@@ -10,12 +10,12 @@
 // Pushes data as pointer onto the stack.
 StackNode *push(StackNode *stack, void *data)
 {
-    StackNode *newNode = malloc(sizeof(StackNode));
-    if(newNode == NULL){
+    StackNode *newNode = malloc(sizeof(StackNode)); //Erzeugt Speicher der größe des erstellten structs
+    if(newNode == NULL){ //Fall newNode nicht ersetellt wird der vorherige Knoten unverändert zurückgegeben
         return stack;
     }
 
-    newNode->data = data;
+    newNode->data = data; //Neuer Knoten bekommt Adresse des nächsten Knotens sowie Adresse der gewünschten Daten zugewiesen
     newNode->next = stack;
 
     return newNode;
@@ -31,9 +31,9 @@ StackNode *pop(StackNode *stack)
         return stack;
     }
 
-    StackNode *temp = stack->next;
+    StackNode *temp = stack->next; //Zeiger wird zwischengepeichert, der Stack gelöscht und anschlißend der Zeiger auf den jetzt obersten Knoten zurückgegeben
     
-    free(stack);
+    free(stack); //Wichtig nach temp, da sonst die Adresse auf den nächsten Knoten verloren wäre und kein Zugriff mehr möglich
 
     return temp;
 }
@@ -44,11 +44,22 @@ void *top(StackNode *stack)
     if(stack == NULL){
         return NULL;
     }
-    return stack->data;
+    return stack->data; //gibt den Inhalt des obersten Knotens zurück
 }
 
 // Clears stack and releases all memory.
 void clearStack(StackNode *stack)
 {
+    if(stack == NULL){
+        return stack;
+    }
 
+    while(stack != NULL){ //Gleicher Aufbau wie pop. Wird nur mehrfach wiederholt, bis nichts mehr im Stack liegt
+        StackNode *temp = stack->next;
+
+        free(stack);
+
+        stack = temp;
+    }
+    return NULL;
 }
