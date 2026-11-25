@@ -16,7 +16,38 @@
 // creating random numbers.
 unsigned int *createNumbers(unsigned int len)
 {
+  srand(time(NULL));
+  if(len == 0){
+    return NULL;
+  }
+  //Speicher Anlegen
+  unsigned int *randomNumbers = malloc(len * sizeof(unsigned int));
+  if(randomNumbers == NULL){ //Überprüfen ob es geklappt hat
+    return NULL;
+  }
+  //Random Zahlen erstellen und überprüfen ob jede nur einmal vorkommt
+  for(unsigned int i = 0; i < len; i++){
+    unsigned int duplicateFound = 1;
+    unsigned int numbers;
+    while(duplicateFound == 1){
+      duplicateFound = 0;
+      numbers = (rand() % (2 * len)) + 1;
+      for(unsigned int j = 0; j < i; j++){
+        if(randomNumbers[j] == numbers){
+          duplicateFound = 1;
+          break;
+        }
+      }      
+    }
+    //Eine Zahl aussuchen und dann Duplizieren und wieder an irgendeiner stelle einfügen
 
+
+
+
+
+    randomNumbers[i] = numbers;
+  }
+  return randomNumbers;
 }
 
 // Returns only the only number in numbers which is present twice. Returns zero on errors.
