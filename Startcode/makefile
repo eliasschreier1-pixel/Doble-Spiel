@@ -32,11 +32,14 @@ doble : main.o $(program_obj_files)
 $(program_obj_files): %.o: %.c
 	$(CC) -c $(FLAGS) $^ -o $@
 
+
+
 # --------------------------
 # Unit Tests
 # --------------------------
-unitTests:
-	echo "needs to be implemented"
+test_stack: stack.o test_stack.c $(unityfolder)/unity.c
+	$(CC) $(FLAGS) -I$(unityfolder) -o runtest_stack test_stack.c stack.o $(unityfolder)/unity.c
+	
 
 # --------------------------
 # Clean

@@ -51,24 +51,22 @@ void test_clearOnEmptyStack(void)
 
     clearStack(stack);
 
-    TEST_ASSERT_NULL(stack);
-}
+    TEST_ASSERT_NULL(stack); //NULL Test ändert nichts. Eigentlich sollte hier nur kein Absturz geprüft werden
+}                              //!!!Vlt nochmal ändern
 
 void test_clearOnFullStack(void)
 {
     StackNode *stack = NULL;
-    int a = 1, b = 2, c = 3, d = 4, e = 5;
-    int x = 0;
-    for(int i = '97' + x; i < 102; i++)
+    int values[5] = {1, 2, 3, 4, 5};
+    
+    for(int i = 0; i < 5; i++)
     {
-        stack = push(stack, &i);
-
-        x++;
+        stack = push(stack, &values[i]);
     }
 
+    TEST_ASSERT_NOT_NULL(stack); //!!! Hier weiter machen. Prüfen ob Test korrekt 
+    
     clearStack(stack);
-
-    TEST_ASSERT_NULL(stack); //!!! Hier weiter machen. Prüfen ob Test korrekt
 }
 
 void setUp(void) {}
@@ -81,6 +79,8 @@ int main()
     RUN_TEST(test_popRevealsPreviousElement);
     RUN_TEST(test_topOnEmptyStack);
     RUN_TEST(test_popOnEmptyStack);
+    RUN_TEST(test_clearOnEmptyStack);
+    RUN_TEST(test_clearOnFullStack);
 
     return UNITY_END();
 }

@@ -50,16 +50,11 @@ void *top(StackNode *stack)
 // Clears stack and releases all memory.
 void clearStack(StackNode *stack)
 {
-    if(stack == NULL){
-        return stack;
-    }
-
-    while(stack != NULL){ //Gleicher Aufbau wie pop. Wird nur mehrfach wiederholt, bis nichts mehr im Stack liegt
+    while(stack != NULL){ //Gleicher Aufbau wie pop. Wird nur mehrfach wiederholt, bis nichts mehr im Stack liegt -> Theoretisch wäre auch Aufruf von pop möglich gewesen
         StackNode *temp = stack->next;
-
+        
         free(stack);
-
+        
         stack = temp;
     }
-    return NULL;
 }
