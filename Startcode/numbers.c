@@ -40,13 +40,24 @@ unsigned int *createNumbers(unsigned int len)
       }      
     }
     //Eine Zahl aussuchen und dann Duplizieren und wieder an irgendeiner stelle einfügen
-
-
-
+    
 
 
     randomNumbers[i] = numbers;
   }
+  
+  unsigned int IndexToDuplicate = rand() % (len + 1);
+  unsigned int temp = randomNumbers[IndexToDuplicate];
+  unsigned int duplicatePlace = 1;
+  unsigned int IndexToPlace;
+  while(duplicatePlace == 1){
+    IndexToPlace = rand() % (len + 1);
+    if(IndexToDuplicate == IndexToPlace){
+      duplicatePlace == 1;
+    }
+  }
+  randomNumbers[IndexToPlace] = temp;
+
   return randomNumbers;
 }
 
