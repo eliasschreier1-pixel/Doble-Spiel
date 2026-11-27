@@ -39,30 +39,59 @@ unsigned int *createNumbers(unsigned int len)
         }
       }      
     }
-    //Eine Zahl aussuchen und dann Duplizieren und wieder an irgendeiner stelle einfügen
-    
-
-
     randomNumbers[i] = numbers;
   }
-  
-  unsigned int IndexToDuplicate = rand() % (len + 1);
-  unsigned int temp = randomNumbers[IndexToDuplicate];
-  unsigned int duplicatePlace = 1;
-  unsigned int IndexToPlace;
-  while(duplicatePlace == 1){
-    IndexToPlace = rand() % (len + 1);
-    if(IndexToDuplicate == IndexToPlace){
-      duplicatePlace == 1;
-    }
+
+   //Eine Zahl aussuchen und dann Duplizieren und wieder an irgendeiner stelle einfügen
+  unsigned int indexToDuplicate = rand() % len;
+  unsigned int temp = randomNumbers[indexToDuplicate];
+  unsigned int indexToPlace = indexToDuplicate;
+  while(indexToDuplicate == indexToPlace){
+    indexToPlace = rand() % len;
   }
-  randomNumbers[IndexToPlace] = temp;
+  randomNumbers[indexToPlace] = temp;
 
   return randomNumbers;
 }
+//Vergleichsfunktion um zu überprüfen welche Zahl doppelt vor kommt
+int compareNumbers(const void *a, const void *b){
+  const unsigned int *numA = (const unsigned int *)a;
+  const unsigned int *numB = (const unsigned int *)b;
+  if(*numA < *numB){
+    return -1;
+  }
+  else if(*numA > *numB){
+    return 1;
+  }
+  else{
+    return 0;
+  }
+}
+
+
 
 // Returns only the only number in numbers which is present twice. Returns zero on errors.
 unsigned int getDuplicate(const unsigned int numbers[], unsigned int len)
 {
+  if(numbers == 0 || len == 0){
+    return 0;
+  }
+  unsigned int *sortNumbers = malloc(len * sizeof(unsigned int));
+  if(sortNumbers == NULL){
+    return 0;
+  }
+  for(unsigned int i = 0; i < len; i++){
+      sortNumbers[i] = numbers[i];
+  }
+  unsigned int duplicate = 0;
+  qsort(sortNumbers, len, sizeof(unsigned int), compareNumbers);
+  for(unsigned int i = 0; i < len - 1; i++){
+   if(sortNumbers[i] == sortNumbers[i + 1]){
+     duplicate = sortNumbers[i];
+     break;
+    }
+  }
+  free(sortNumbers);
+  return duplicate;
 
 }
